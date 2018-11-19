@@ -9,17 +9,10 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/url/:url', function(req, res, next){
+router.get('/url/', function(req, res, next){
 
-  var url = 'http://'+req.params.url;   
- 
-  if(req.query){
-    var queryObj = _.map(req.query, function(value, key){ return key+'='+value });
-    var str = '';
-    var queryStr = queryObj.join('&');
-    url += '/?'+queryStr;
-  }
-  console.log('Url: ', url);
+  var url = req.query.url;   
+
   request(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       res.send(body);
