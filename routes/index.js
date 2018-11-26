@@ -13,7 +13,14 @@ router.get('/url/', function(req, res, next){
 
   var url = req.query.url;   
 
-  request(url, function (error, response, body) {
+  var options = {
+    url: url,
+    headers: {
+      'X-CMC_PRO_API_KEY': process.env.API_KEY
+    }
+  } 
+
+  request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       res.send(body);
     }
